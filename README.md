@@ -1,19 +1,31 @@
 # CM3D2.ReadAsShiftJisFix.Patcher
 A late for 9 years plugin, that let you no longer need to change the system language or use a language simulator to play CM3D2
 
+<br>
 
 ## Useage
+
+you should have [Sybaris](https://seesaawiki.jp/cm3d2-mod/d/%a5%d7%a5%e9%a5%b0%a5%a4%a5%f3/%a4%b7%a4%d0%a4%ea%a4%b9) installed.
 
 1. Put mono 2.0's `I18N.dll` and `I18N.CJK.dll` in `CM3D2\CM3D2x64_Data\Managed` 
 2. Put CM3D2.1_ReadAsShiftJisFix.Patcher.dll in `CM3D2\Sybaris\Loader`
 3. Lauch Game
 
+<br>
+
+## Additional
+
 If you don't trust the dll I provide
 1. For this plugin, you can download it from Github Action
 2. For `I18N.dll` and `I18N.CJK.dll` you can download mono from https://download.mono-project.com/archive/2.0/windows-installer/5/index.html and install it, then you can find `I18N.dll` and `I18N.CJK.dll` in Mono-2.0\lib\mono\2.0
 
+Tested in 
+- CM3D2 1.72.0 + Sybaris ver160930
+- CM3D2CBL 1.72.0 + Sybaris ver160930
 
-### Background
+<br>
+
+## Story
 
 As we all know, CM3D2 requires the Windows system language to be set to Japanese (encoded as Shift-JIS) in order to enter the game normally.
 
