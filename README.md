@@ -3,7 +3,7 @@ A late for 9 years plugin, that let you no longer need to change the system lang
 
 <br>
 
-## Useage
+## Usage
 
 you should have [Sybaris](https://seesaawiki.jp/cm3d2-mod/d/%a5%d7%a5%e9%a5%b0%a5%a4%a5%f3/%a4%b7%a4%d0%a4%ea%a4%b9) installed.
 
