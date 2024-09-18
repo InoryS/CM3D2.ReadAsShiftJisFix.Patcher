@@ -30,4 +30,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: CM3D2.ReadAsShiftJisFix.Patcher
-          path: /home/runner/work/CM3D2.ReadAsShiftJisFix.Patcher/bin/Release/CM3D2.1_ReadAsShiftJisFixPatcher.dll
+          path: /home/runner/work/CM3D2.ReadAsShiftJisFix.Patcher/CM3D2.ReadAsShiftJisFix.Patcher/bin/Release/CM3D2.1_ReadAsShiftJisFix.Patcher.dll
