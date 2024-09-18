@@ -1,5 +1,5 @@
 # CM3D2.ReadAsShiftJisFix.Patcher
-A late for 9 years plugin, that let you no longer need to change the system language or use a language simulator to play CM3D2
+A late for 9 years plugin, that let you no longer need to change the system language or use a language simulator to play CM3D2.
 
 <br>
 
@@ -9,7 +9,7 @@ you should have [Sybaris](https://seesaawiki.jp/cm3d2-mod/d/%a5%d7%a5%e9%a5%b0%a
 
 1. Put mono 2.0's `I18N.dll` and `I18N.CJK.dll` in `CM3D2\CM3D2x64_Data\Managed` 
 2. Put CM3D2.1_ReadAsShiftJisFix.Patcher.dll in `CM3D2\Sybaris\Loader`
-3. Lauch Game
+3. Launch the game
 
 <br>
 
@@ -49,8 +49,7 @@ enum parse error.[堹梸]
 
 I always thought KISS did this on purpose like ILLUSION did, but after checking the game's internal code, I found that this was not the case.
 
-It just a coding bug
-you see in `Assembly-CSharp-firstpass.dll -> Nuty.cs` there is a method
+You see in `Assembly-CSharp-firstpass.dll -> Nuty.cs` there is a method:
 ```
 	public static string ReadAsShiftJis(byte[] bArray)
 	{
@@ -63,7 +62,9 @@ you see in `Assembly-CSharp-firstpass.dll -> Nuty.cs` there is a method
 
 
 In `Assembly-CSharp.dll -> Yotogi.cs` there is a class
+
 it called GetCellAsString() and the GetCellAsString() return ReadAsShiftJis(), then an ArgumentException occurs, and you get this error message.
+
 ```
 	public class SkillData
 	{
@@ -110,6 +111,7 @@ To sum up, this is just a code bug, setting the decoding option to the default c
 
 
 So I just used IL operation to change 1U to 932(Shift-JIS), but it didn’t work.
+
 After I tried other methods, an error should have been thrown:
 ```
 NotSupportedException: CodePage 932 not supported
@@ -122,8 +124,11 @@ at MonoSingleton`1[GameMain].Initialize (.GameMain instance) [0x00000] in <filen
 ```
 
 Wow, 932 is not supported, but the default encoding can be used?
+
 But anyway, adding `I18N.dll` and `I18N.CJK.dll` can solve this problem.
 
 So this is the plugin that came 9 years late.
+
+
 
 
