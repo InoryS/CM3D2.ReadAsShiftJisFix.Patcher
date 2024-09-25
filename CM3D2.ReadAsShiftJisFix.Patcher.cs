@@ -1,17 +1,42 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
+using ReiPatcher;
+using ReiPatcher.Patch;
 
+
+[assembly: AssemblyVersion("1.0.0.1")]
+[assembly: AssemblyFileVersion("1.0.0.1")]
+[assembly: AssemblyTitle("https://github.com/InoryS/CM3D2.ReadAsShiftJisFix.Patcher")]
+[assembly: AssemblyProduct("CM3D2.ReadAsShiftJisFix.Patcher")]
+[assembly: AssemblyCopyright("WTFPL")]
 namespace CM3D2.ReadAsShiftJisFix.Patcher
 {
-    public static class ReadAsShiftJisFixPatcher
+    public class ReadAsShiftJisFixPatcher : PatchBase
     {
-        public static string Version => "1.0.0.0";
+        public override string Name => "CM3D2.ReadAsShiftJisFix.Patcher";
 
-        public static void Patch(AssemblyDefinition assembly)
+        public override string Version => "1.0.0.1";
+
+        public override void PrePatch()
+        {
+            RPConfig.RequestAssembly("Assembly-CSharp-firstpass.dll");
+        }
+
+        public override bool CanPatch(PatcherArguments args)
+        {
+            return args.Assembly.Name.Name == "Assembly-CSharp-firstpass"
+                   && GetPatchedAttributes(args.Assembly).All(att => att.Info != Name);
+        }
+
+        public override void Patch(PatcherArguments args)
         {
             try
             {
+                AssemblyDefinition assembly = args.Assembly;
+
                 // Get the NUty type
                 TypeDefinition nUtyType = assembly.MainModule.GetType("NUty");
                 if (nUtyType == null)
@@ -29,6 +54,9 @@ namespace CM3D2.ReadAsShiftJisFix.Patcher
 
                 // Modify the method body
                 ReplaceReadAsShiftJisMethod(assembly.MainModule, readAsShiftJisMethod);
+
+                // Mark the assembly as patched
+                SetPatchedAttribute(args.Assembly, Name);
             }
             catch (Exception ex)
             {
@@ -36,7 +64,12 @@ namespace CM3D2.ReadAsShiftJisFix.Patcher
             }
         }
 
-        private static void ReplaceReadAsShiftJisMethod(ModuleDefinition module, MethodDefinition method)
+
+        // public override void PostPatch()
+        // {}
+
+
+        private void ReplaceReadAsShiftJisMethod(ModuleDefinition module, MethodDefinition method)
         {
             method.Body.Instructions.Clear();
             method.Body.Variables.Clear();
@@ -50,7 +83,8 @@ namespace CM3D2.ReadAsShiftJisFix.Patcher
             var resultVariable = new VariableDefinition(stringType);
             method.Body.Variables.Add(resultVariable);
 
-            // Load encoding 932 (Shift-JIS)
+            // Load encoding 932 (Shift-JIS),
+            // CM3D2's mono does not support CodePage 932, so you need to import I18N.dll and I18N.CJK.dll
             MethodReference getEncodingMethod =
                 module.ImportReference(
                     typeof(System.Text.Encoding).GetMethod("GetEncoding", new Type[] { typeof(int) }));
@@ -89,11 +123,17 @@ namespace CM3D2.ReadAsShiftJisFix.Patcher
             // Return result
             ilProcessor.Append(ilProcessor.Create(OpCodes.Ret));
         }
-
-
-        public static readonly string[] TargetAssemblyNames = new string[]
-        {
-            "Assembly-CSharp-firstpass.dll"
-        };
     }
 }
+
+
+
+
+// Original method reference
+//
+// public static string ReadAsShiftJis(byte[] bArray)
+// {
+//     StringBuilder stringBuilder = new StringBuilder(bArray.Length + 1);
+//     NUty.MultiByteToWideChar(1U, 0U, bArray, -1, stringBuilder, stringBuilder.Capacity);
+//     return stringBuilder.ToString();
+// }
