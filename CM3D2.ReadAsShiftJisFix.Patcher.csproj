@@ -39,6 +39,9 @@
     <Reference Include="Mono.Cecil">
       <HintPath>.\lib\Mono.Cecil.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.Cecil.Rocks">
+      <HintPath>.\lib\Mono.Cecil.Rocks.dll</HintPath>
+    </Reference>
     <Reference Include="ReiPatcher">
       <HintPath>.\lib\ReiPatcher.exe</HintPath>
     </Reference>

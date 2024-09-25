@@ -10,10 +10,10 @@ internal static class PatcherHelper
 {
     public delegate void InsertInstDelegate(Instruction newInst);
 
-    public static MethodDefinition GetMethod(TypeDefinition type, string methodName)
-    {
-        return type.Methods.FirstOrDefault(m => m.Name == methodName);
-    }
+    // public static MethodDefinition GetMethod(TypeDefinition type, string methodName)
+    // {
+    //     return type.Methods.FirstOrDefault(m => m.Name == methodName);
+    // }
 
     public static void DumpMethods(TextWriter tw, TypeDefinition type)
     {
