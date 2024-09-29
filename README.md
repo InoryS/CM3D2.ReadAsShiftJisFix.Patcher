@@ -3,6 +3,26 @@ A late for 9 years plugin, that let you no longer need to change the system lang
 
 <br>
 
+# This plugin is not working at the moment, please help
+
+Using this plugin will allow you to enter the game, but you will get a runtime error when you load the save file.
+
+I tried all the solutions I could think of but none of them worked.
+
+If you are interested, please try to fix it, it's WTFPL.
+
+
+
+![b1568f79a55de02bb89008f431a384fd](https://github.com/user-attachments/assets/e6789e21-44ef-4639-96be-ee4e7e1a9dbf)
+
+
+
+
+<br>
+<br>
+
+
+
 ## Usage
 
 you should have [Sybaris](https://seesaawiki.jp/cm3d2-mod/d/%a5%d7%a5%e9%a5%b0%a5%a4%a5%f3/%a4%b7%a4%d0%a4%ea%a4%b9) installed.
